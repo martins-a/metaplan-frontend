@@ -1,0 +1,21 @@
+<mat-drawer-container class="main-side-nav">
+  <mat-drawer mode="side" opened>
+
+    <div>LOGO - MetaPlan</div>
+
+    <div class="menu-items">
+      @for (item of menuItems; track item.route) {
+        <a mat-list-item (click)="navigateTo(item.route)" class="nav-item">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.name }}</span>
+        </a>
+      }
+    </div>
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="main-content-wrapper">
+      <router-outlet />
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

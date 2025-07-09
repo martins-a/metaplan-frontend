@@ -1,0 +1,36 @@
+
+
+.main-side-nav {
+  background-color: #111111;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.menu-items {
+  width: 359px;
+}
+
+.nav-item {
+  cursor: pointer;
+  width: calc(359px - 20px);
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    margin-left: 5px;
+  }
+}
+
+.content {
+  padding: 20px;
+  min-height: calc(100vh - 64px);
+}
+
+.main-content-wrapper {
+  padding: 16px;
+}

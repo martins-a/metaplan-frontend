@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:root {
+  @include mat.sidenav-overrides((
+    container-background-color: black,
+    container-text-color: #00FF88,
+  ));
+}
+
+/*
+  --bg-primary: #000000;
+  --bg-secondary: #111111;
+  --bg-tertiary: #333333;
+  --color-primary: #00ff88;
+  --color-primary-hover: #00e67a;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-muted: #888888;
+  --color-error: #ff4444;
+ */
