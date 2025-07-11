@@ -1,0 +1,39 @@
+<div class="meta-create-page__container">
+  <form [formGroup]="myMetaForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" maxlength="50" required>
+      <div class="error-hint" *ngIf="myMetaForm.get('name')?.invalid && myMetaForm.get('name')?.touched">
+        Name is required and must be 50 characters or less
+      </div>
+    </div>
+
+    <div>
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" maxlength="100" required></textarea>
+      <div class="error-hint" *ngIf="myMetaForm.get('description')?.invalid && myMetaForm.get('description')?.touched">
+        Description is required and must be 100 characters or less
+      </div>
+    </div>
+
+    <div>
+      <label for="objective">Objective</label>
+      <input id="objective" type="number" formControlName="objective" step="0.01" min="0" required>
+      <div class="error-hint" *ngIf="myMetaForm.get('objective')?.invalid && myMetaForm.get('objective')?.touched">
+        Objective amount is required and must be greater than 0
+      </div>
+    </div>
+
+    <div>
+      <label>
+        <input type="checkbox" formControlName="completed">
+        Completed
+      </label>
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="myMetaForm.invalid">Submit</button>
+      <button type="button" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
+</div>
