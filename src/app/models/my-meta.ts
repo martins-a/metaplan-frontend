@@ -1,5 +1,5 @@
 export interface MyMeta {
-  id: string;
+  id?: string;
   name: string;
   description: string;
   reserve: number;

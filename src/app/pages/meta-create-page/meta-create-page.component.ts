@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {MyMeta} from '../../models/my-meta';
+import {MetaApiService} from '../../services/meta-api.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-meta-create-page',
@@ -8,10 +11,13 @@ import {CommonModule} from '@angular/common';
   templateUrl: './meta-create-page.component.html',
   styleUrl: './meta-create-page.component.scss'
 })
-export class MetaCreatePageComponent {
+export class MetaCreatePageComponent implements OnInit {
   myMetaForm: FormGroup;
+  metaApiService = inject(MetaApiService);
 
-  constructor(private fb: FormBuilder) {
+  metaId: string | null = null;
+
+  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
     this.myMetaForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(100)]],
@@ -22,6 +28,25 @@ export class MetaCreatePageComponent {
 
   onSubmit(): void {
     if (this.myMetaForm.valid) {
+      const formValue = this.myMetaForm.value;
+      const meta: MyMeta = {
+        completed: formValue.completed,
+        description: formValue.description,
+        name: formValue.name,
+        objective: formValue.objective,
+        reserve: 0,
+      }
+      if ( this.metaId ) {
+        meta.id = this.metaId;
+        this.metaApiService.editMeta(meta).subscribe(meta => {
+          alert('edited successfully');
+        });
+      } else {
+        this.metaApiService.addMeta(meta).subscribe(meta => {
+          alert('created successfully');
+        });
+      }
+
       console.log('Form submitted:', this.myMetaForm.value);
     }
   }
@@ -33,5 +58,10 @@ export class MetaCreatePageComponent {
       objective: '',
       completed: false
     });
+  }
+
+  ngOnInit(): void {
+    this.metaId = this.route.snapshot.queryParamMap.get('id');
+    console.log('Path parameter (snapshot):', this.metaId);
   }
 }

@@ -15,12 +15,31 @@ export class MetaApiService {
   private readonly httpClient = inject(HttpClient);
 
   getAllMetas(): Observable<MyMeta[]> {
-    let params = new HttpParams();
-
     return this.httpClient.get<MetaListDto>(`${this.baseUrl}/metas`, {}).pipe(
       map(resp => resp.data!),
       catchError(this.handleError)
     );
+  }
+
+  addMeta(meta: MyMeta): Observable<MyMeta> {
+    return this.httpClient.post<MyMeta>(`${this.baseUrl}/metas`, meta).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  editMeta(meta: MyMeta): Observable<MyMeta> {
+    return this.httpClient.put<MyMeta>(`${this.baseUrl}/metas`, meta).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  deleteMeta(id: string): Observable<void> {
+    let params = new HttpParams();
+    params = params.set('id', id);
+
+    return this.httpClient.delete<void>(`${this.baseUrl}/metas`, { params }).pipe(
+      catchError(this.handleError)
+    )
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

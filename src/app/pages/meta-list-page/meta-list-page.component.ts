@@ -6,7 +6,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MyMeta} from '../../models/my-meta';
 import {MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {CommonModule} from '@angular/common';
 import {MetaApiService} from '../../services/meta-api.service';
@@ -22,6 +22,10 @@ import {environment} from '../../../environment/environment';
 export class MetaListPageComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(
+    private router: Router,
+  ) {}
 
   displayedColumns: string[] = ['name', 'description', 'reserve', 'objective', 'actions'];
   dataSource: MatTableDataSource<MyMeta> =  new MatTableDataSource<MyMeta>();
@@ -44,17 +48,23 @@ export class MetaListPageComponent implements AfterViewInit {
   }
 
   editRecord(id: number): void {
-    // const newRecord: TableData = {
-    //   id: this.nextId++,
-    //   name: `User ${this.nextId - 1}`,
-    //   email: `user${this.nextId - 1}@example.com`,
-    //   position: 'Employee'
-    // };
-    //
-    // this.dataSource = [...this.dataSource, newRecord];
+    this.router.navigate(['/meta-create'], {
+      queryParams: {
+        id: id
+      }
+    });
   }
 
-  deleteRecord(id: number): void {
-    // this.dataSource = this.dataSource.filter(record => record.id !== id);
+  deleteRecord(id: string): void {
+    alert(id);
+    debugger;
+    if (environment.useMock) {
+      alert('deleted');
+    } else {
+      this.metaApiService.deleteMeta(id)
+        .subscribe(() => {
+          alert('deleted');
+        })
+    }
   }
 }
