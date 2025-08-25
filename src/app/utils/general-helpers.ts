@@ -6,6 +6,7 @@ export function formatCurrency(amount: number, currency = 'USD', locale = 'en-US
   }).format(amount);
 }
 
+//test-bot
 export function downloadFile(data: Blob | string, filename: string, mimeType = 'application/octet-stream'): void {
   const blob = data instanceof Blob ? data : new Blob([data], { type: mimeType });
   const url = window.URL.createObjectURL(blob);
@@ -18,6 +19,7 @@ export function downloadFile(data: Blob | string, filename: string, mimeType = '
   window.URL.revokeObjectURL(url);
 }
 
+//test-bot
 export function generateRandomString(length = 10, includeNumbers = true): string {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   const numbers = '0123456789';
@@ -29,6 +31,7 @@ export function generateRandomString(length = 10, includeNumbers = true): string
   return result;
 }
 
+//test-bot
 export function titleCase(text: string): string {
   if (!text) return '';
   return text
